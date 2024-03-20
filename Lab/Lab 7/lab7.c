@@ -24,7 +24,7 @@ FILE *input;
 FILE *output;
 
 // FUNCTION HEADERS. //
-void printErrorExit();
+void errorMsg();
 void insertList(ListNode *head, int *option);
 void insertSTD(ListNode *head, Student *newStudent);
 void freeList(ListNode *head);
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-void printErrorExit() {
+void errorMsg() {
     if (output != NULL) {
         if (input != NULL) fclose(input);
         fprintf(output, "error\n");
@@ -169,7 +169,7 @@ void insertSTD(ListNode *head, Student *newStudent) {
     
     // checks for null base case.
     if (newNode == NULL) {
-        printErrorExit();
+        errorMsg();
     }
 
     newNode->std = newStudent;
@@ -210,7 +210,7 @@ void insertList(ListNode *head, int *option) {
 
     // make sure that options are in the range
     if (!(*option >= 1 && *option <= 5))             
-        printErrorExit();
+        errorMsg();
     
     // set buffer to the beginning of student list.
     fseek(input, 2, SEEK_SET);                          
@@ -224,7 +224,7 @@ void insertList(ListNode *head, int *option) {
         int finalGradeTmp = 0;
 
         if (firstNameTmp == NULL || lastNameTmp == NULL || stdTmp == NULL) {
-            printErrorExit();
+            errorMsg();
         }             
             
         int stat = sscanf(buff, "%s %s %s %d %d\n", 
@@ -232,7 +232,7 @@ void insertList(ListNode *head, int *option) {
 
         // has to have 5 elements
         if (stat != 5)
-            printErrorExit();                                                   
+            errorMsg();                                                  
 
         if (checkGrade(midtermGradeTmp) && checkGrade(finalGradeTmp) 
             && checkSTD(stdTmp) && checkName(firstNameTmp) 
@@ -241,7 +241,7 @@ void insertList(ListNode *head, int *option) {
             Student *newStudent = malloc(sizeof(struct student));
 
             if (newStudent == NULL)
-                printErrorExit();
+                errorMsg();
 
             newStudent->lastName = lastNameTmp;
             newStudent->firstName = firstNameTmp;
@@ -252,7 +252,7 @@ void insertList(ListNode *head, int *option) {
             insertSTD(head, newStudent);
 
         } else {
-            printErrorExit();
+            errorMsg();
         }
 
         track++;
@@ -287,7 +287,7 @@ void filterInsert(int l, int u, ListNode *head) {
         }
 
     } else {
-        printErrorExit();
+        errorMsg();
     }
 }
 
