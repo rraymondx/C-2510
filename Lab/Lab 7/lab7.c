@@ -4,7 +4,7 @@
 
 // Student Number: A01343016
 
-// struct to store students info
+// STRUCT STUDENT. //
 typedef struct student{
     char *lastName;
     char *firstName;
@@ -14,12 +14,14 @@ typedef struct student{
     int avgGrade;
 } Student;
 
+// STRUCT LISTNODE. //
 typedef struct listNode{
     struct student *std;
     struct listNode *next;
 } ListNode;
 
-FILE *input, *output;
+FILE *input;
+FILE *output;
 
 // FUNCTION HEADERS. //
 void printErrorExit();
@@ -31,11 +33,11 @@ int checkName(char *name);
 int checkSTD(char *stdNum);
 int checkGrade(int grade);
 
+// Main Function. //
 int main(int argc, char* argv[]){
 
     // Check if correct number of arguments provided
     if(argc != 3) {
-        printf("Usage: %s input output\n", argv[0]);
         return 1;
     }
 
@@ -152,6 +154,12 @@ int cmpStudent(Student *a, Student *b) {
     if(stdNumCmp != 0) {
         return stdNumCmp;
     }
+
+    if(a->midtermGrade != b->midtermGrade) {
+        return a->midtermGrade - b->midtermGrade;
+    }
+
+    return a->finalGrade - b->finalGrade;
 
 }
 
@@ -283,6 +291,7 @@ void filterInsert(int l, int u, ListNode *head) {
     }
 }
 
+// exports items and ouputs based on the bound. //
 void expList(int *option, ListNode *head) {
     switch(*option) {
         case 1:
